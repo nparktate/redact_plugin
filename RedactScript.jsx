@@ -36,3 +36,7 @@ shapeLayer.parent = textLayer;
 // Set the position of the shape layer to the text layer's anchor point
 shapeLayer.transform.position.expression = "var t = thisComp.layer('" + textLayer.name + "'); t.transform.anchorPoint;";
 shapeLayer.transform.position.setValue(textLayer.transform.anchorPoint.value);
+
+// Set the scale of the shape layer to 100%
+shapeLayer.transform.scale.setValue([100, 100]);
+
