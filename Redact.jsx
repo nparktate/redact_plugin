@@ -130,11 +130,39 @@ function onApplyButtonClick() {
     // Add Turbulent Displace effect and set properties
     var turbulentDisplace = shapeLayer.Effects.addProperty("Turbulent Displace");
     turbulentDisplace.name = "Marker Texture";
-    turbulentDisplace.property("Displacement").setValue(1); // 1 represents Turbulent Smoother
+    turbulentDisplace.property("Displacement").setValue(5); // 5 represents Turbulent Smoother
     turbulentDisplace.property("Amount").setValue(35);
     turbulentDisplace.property("Size").setValue(20);
     turbulentDisplace.property("Complexity").setValue(5);
 
+  }
+  
+  // Check if the selected style is "Brush" and apply corresponding effects
+  if (dropdown1.selection.text === "Brush") {
+    // Add Turbulent Displace effect renamed to "Brush texture"
+    var brushTexture = shapeLayer.Effects.addProperty("ADBE Turbulent Displace");
+    brushTexture.name = "Brush texture";
+    brushTexture.property("Displacement").setValue(10); // 10 represents Turbulent Horizontal
+    brushTexture.property("Amount").setValue(400);
+    brushTexture.property("Size").setValue(20);
+    brushTexture.property("Complexity").setValue(5);
+
+    // Add Brush Strokes effect renamed to "Brush Stroke"
+    var brushStroke = shapeLayer.Effects.addProperty("ADBE Brush Strokes");
+    brushStroke.name = "Brush Stroke";
+    brushStroke.property("Stroke Angle").setValue(90);
+    brushStroke.property("Brush Size").setValue(2);
+    brushStroke.property("Stroke Length").setValue(25);
+    brushStroke.property("Stroke Density").setValue(0.4);
+    brushStroke.property("Stroke Randomness").setValue(0);
+    brushStroke.property("Paint Surface").setValue(2);
+
+    // Add Roughen Edges effect renamed to "Brush Tip Finishing"
+    var brushTipFinishing = shapeLayer.Effects.addProperty("ADBE Roughen Edges");
+    brushTipFinishing.name = "Brush Tip Finishing";
+    brushTipFinishing.property("Edge Type").setValue(4);
+    brushTipFinishing.property("Border").setValue(3);
+    brushTipFinishing.property("Complexity").setValue(5);
   }  
 
   // Parent the shape layer to the text layer
