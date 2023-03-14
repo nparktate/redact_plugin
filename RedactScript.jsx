@@ -17,7 +17,7 @@ rectPath.property("Position").setValue([boundingBox.left + boundingBox.width/2, 
 // Set the fill color of the rectangle
 var fill = shapeLayer.property("Contents").addProperty("ADBE Vector Graphic - Fill");
 fill.property("Color").setValue([0, 0, 0]); // black fill
-fill.property("Opacity").setValue(50); // 50% opacity
+fill.property("Opacity").setValue(100); // 50% opacity
 
 // Add a slider control to the shape layer for vertical scale
 var verticalScale = shapeLayer.Effects.addProperty("ADBE Slider Control");
@@ -40,3 +40,11 @@ shapeLayer.transform.position.setValue(textLayer.transform.anchorPoint.value);
 // Set the scale of the shape layer to 100%
 shapeLayer.transform.scale.setValue([100, 100]);
 
+// Add the CC Line Sweep effect to the shape layer
+var lineSweep = shapeLayer.Effects.addProperty("CC Line Sweep");
+lineSweep.name = "Redact Animation";
+lineSweep.property("Thickness").setValue(1000);
+lineSweep.property("Slant").setValue(0);
+lineSweep.property("Flip Direction").setValue(true);
+lineSweep.property("Completion").setValue(100);
+lineSweep.property("Completion").setValuesAtTimes([0, 1], [100, 0]);
