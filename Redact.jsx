@@ -91,7 +91,7 @@ function onApplyButtonClick() {
   if (dropdown1.selection.text === "Strikethrough") {
     verticalScale.property("Slider").setValue(25);
   } else {
-    verticalScale.property("Slider").setValue(100);
+    verticalScale.property("Slider").setValue(80);
   }
 
   // Add a slider control to the shape layer for rounded corners radius
@@ -104,6 +104,9 @@ function onApplyButtonClick() {
 
   // Set the anchor point of the shape layer to the center of the bounding box
   shapeLayer.transform.anchorPoint.setValue([boundingBox.left + boundingBox.width/2, boundingBox.top + boundingBox.height/2]);
+
+  // Parent the shape layer to the text layer
+  shapeLayer.parent = textLayer;
 
   // Set the position of the shape layer to the text layer's anchor point
   shapeLayer.transform.position.expression = "var t = thisComp.layer('" + textLayer.name + "'); t.transform.anchorPoint;";
@@ -120,6 +123,19 @@ function onApplyButtonClick() {
   lineSweep.property("Flip Direction").setValue(true);
   lineSweep.property("Completion").setValue(100);
   lineSweep.property("Completion").setValuesAtTimes([0, 1], [100, 0]);
+
+  // Check if the "Marker" dropdown is selected
+  if (dropdown1.selection.text === "Marker") {
+
+    // Add Turbulent Displace effect and set properties
+    var turbulentDisplace = shapeLayer.Effects.addProperty("Turbulent Displace");
+    turbulentDisplace.name = "Marker Texture";
+    turbulentDisplace.property("Displacement").setValue(1); // 1 represents Turbulent Smoother
+    turbulentDisplace.property("Amount").setValue(35);
+    turbulentDisplace.property("Size").setValue(20);
+    turbulentDisplace.property("Complexity").setValue(5);
+
+  }  
 
   // Parent the shape layer to the text layer
   shapeLayer.parent = textLayer;
@@ -155,7 +171,7 @@ var divider1 = win.add("panel", undefined, undefined, {name: "divider1"});
 divider1.alignment = "fill"; 
 
 // Add a dropdown to the window or panel
-var dropdown1_array = ["Basic","-","Brush","-","Marker","-","Strikethrough"]; 
+var dropdown1_array = ["Basic","Brush","Marker","Strikethrough"]; 
 var dropdown1 = win.add("dropdownlist", undefined, undefined, {name: "dropdown1", items: dropdown1_array}); 
 dropdown1.helpTip = "Style that is applied to text (You can change and add your own effects to the line after the fact. If you want a blank slate, chose Basic)."; 
 dropdown1.selection = 0; 
