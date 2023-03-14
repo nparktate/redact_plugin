@@ -105,9 +105,6 @@ function onApplyButtonClick() {
   // Set the anchor point of the shape layer to the center of the bounding box
   shapeLayer.transform.anchorPoint.setValue([boundingBox.left + boundingBox.width/2, boundingBox.top + boundingBox.height/2]);
 
-  // Parent the shape layer to the text layer
-  shapeLayer.parent = textLayer;
-
   // Set the position of the shape layer to the text layer's anchor point
   shapeLayer.transform.position.expression = "var t = thisComp.layer('" + textLayer.name + "'); t.transform.anchorPoint;";
   shapeLayer.transform.position.setValue(textLayer.transform.anchorPoint.value);
@@ -123,6 +120,12 @@ function onApplyButtonClick() {
   lineSweep.property("Flip Direction").setValue(true);
   lineSweep.property("Completion").setValue(100);
   lineSweep.property("Completion").setValuesAtTimes([0, 1], [100, 0]);
+
+  // Parent the shape layer to the text layer
+  shapeLayer.parent = textLayer;
+
+  // Move the text layer to be under the shape layer
+  textLayer.moveAfter(shapeLayer);  
 
 }
 
