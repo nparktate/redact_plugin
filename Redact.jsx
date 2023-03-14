@@ -54,7 +54,7 @@ function onApplyButtonClick() {
   // Set the fill color of the rectangle
   var fill = shapeLayer.property("Contents").addProperty("ADBE Vector Graphic - Fill");
   fill.property("Color").setValue([0, 0, 0]); // black fill
-  fill.property("Opacity").setValue(100); // 50% opacity
+  fill.property("Opacity").setValue(100); // 100% opacity
 
   // Add a slider control to the shape layer for vertical scale
   var verticalScale = shapeLayer.Effects.addProperty("ADBE Slider Control");
@@ -90,30 +90,42 @@ function onApplyButtonClick() {
 
 // Create a dockable UI panel or a separate window
 var win = createDockableUI(this);
-
-// Set the title of the window or panel
-win.text = "Redact Text";
-
-// Set the preferred size of the window or panel
-win.preferredSize.width = 200;
-win.preferredSize.height = 60;
-
-// Set the orientation and alignment of the window or panel's children
-win.orientation = "column";
-win.alignChildren = ["center", "top"];
-
-// Set the spacing and margins of the window or panel
-win.spacing = 10;
+win.text = "Redact Text"; 
+win.preferredSize.width = 200; 
+win.preferredSize.height = 60; 
+win.orientation = "column"; 
+win.alignChildren = ["center","top"]; 
+win.spacing = 10; 
 win.margins = 16;
 
+// Add static text description to the window or panel
+var statictext1 = win.add("group", undefined , {name: "statictext1"}); 
+statictext1.getText = function() { var t=[]; for ( var n=0; n<statictext1.children.length; n++ ) { var text = statictext1.children[n].text || ''; if ( text === '' ) text = ' '; t.push( text ); } return t.join('\n'); }; 
+statictext1.orientation = "column"; 
+statictext1.alignChildren = ["left","center"]; 
+statictext1.spacing = 0; 
+statictext1.alignment = ["left","top"];
+statictext1.add("statictext", undefined, "Choose a Text Layer, select"); 
+statictext1.add("statictext", undefined, "Style, and click Apply for the"); 
+statictext1.add("statictext", undefined, "redacted effect."); 
+
+// Add a divider to the window or panel
+var divider1 = win.add("panel", undefined, undefined, {name: "divider1"}); 
+divider1.alignment = "fill"; 
+
+// Add a dropdown to the window or panel
+var dropdown1_array = ["Basic","-","Brush","-","Marker","-","Strikethrough"]; 
+var dropdown1 = win.add("dropdownlist", undefined, undefined, {name: "dropdown1", items: dropdown1_array}); 
+dropdown1.helpTip = "Style that is applied to text (You can change and add your own effects to the line after the fact. If you want a blank slate, chose Basic)."; 
+dropdown1.selection = 0; 
+dropdown1.alignment = ["left","top"];
+
 // Add a button to the window or panel
-var button1 = win.add("button", undefined, undefined, { name: "button1" });
-
-// Set the text of the button
-button1.text = "Apply";
-
-// Assign the event handler (onApplyButtonClick) to the button's onClick event
-button1.onClick = onApplyButtonClick;
+var button1 = win.add("button", undefined, undefined, {name: "button1"}); 
+button1.helpTip = "Applies Redact animation to selected text."; 
+button1.text = "Apply"; 
+button1.alignment = ["left","top"];
+button1.onClick = onApplyButtonClick; // Assign the event handler
 
 // Show the window or panel (depending on whether the script is run in a dockable panel or a separate window)
 showWindow(win);
