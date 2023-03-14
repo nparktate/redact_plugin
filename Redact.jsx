@@ -44,12 +44,17 @@ function onApplyButtonClick() {
   // Create a new shape layer
   var shapeLayer = app.project.activeItem.layers.addShape();
 
+  // Set the shape layer's name based on the dropdown selection
+  shapeLayer.name = dropdown1.selection.text + " Redacted";
+
   // Create a new rectangle path
   var rectPath = shapeLayer.property("Contents").addProperty("ADBE Vector Shape - Rect");
 
-  // Set the rectangle path to the bounding box of the text layer
+  // Set the rectangle path to the bounding box of the text layer and add rounded corners
   rectPath.property("Size").expression = "var t = thisComp.layer('" + textLayer.name + "'); [t.sourceRectAtTime(time,false).width, t.sourceRectAtTime(time,false).height*thisComp.layer('" + shapeLayer.name + "').effect('Vertical Scale')('Slider')/100];";
   rectPath.property("Position").setValue([boundingBox.left + boundingBox.width/2, boundingBox.top + boundingBox.height/2]);
+  rectPath.property("ADBE Vector Rect Roundness").expression = "thisComp.layer('" + shapeLayer.name + "').effect('Rounded Corners Radius')('Slider')";
+
 
   // Set the fill color of the rectangle
   var fill = shapeLayer.property("Contents").addProperty("ADBE Vector Graphic - Fill");
@@ -59,7 +64,18 @@ function onApplyButtonClick() {
   // Add a slider control to the shape layer for vertical scale
   var verticalScale = shapeLayer.Effects.addProperty("ADBE Slider Control");
   verticalScale.name = "Vertical Scale";
-  verticalScale.property("Slider").setValue(100);
+
+  // Check if the dropdown selection is "Strikethrough" and set the slider value accordingly
+  if (dropdown1.selection.text === "Strikethrough") {
+    verticalScale.property("Slider").setValue(25);
+  } else {
+    verticalScale.property("Slider").setValue(100);
+  }
+
+  // Add a slider control to the shape layer for rounded corners radius
+  var roundedCornersRadius = shapeLayer.Effects.addProperty("ADBE Slider Control");
+  roundedCornersRadius.name = "Rounded Corners Radius";
+  roundedCornersRadius.property("Slider").setValue(10);
 
   // Set the anchor point of the text layer to the center of the bounding box
   textLayer.transform.anchorPoint.expression = "var s = sourceRectAtTime(); [s.left+s.width/2, s.top+s.height/2];";
