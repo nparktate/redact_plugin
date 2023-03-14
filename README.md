@@ -6,8 +6,10 @@ This script for Adobe After Effects automates the process of redacting text by c
 
 - Automatic creation of a shape layer that covers the selected text layer.
 - Dockable UI with a dropdown menu to select redaction styles.
-- Customizable vertical scale and rounded corners radius for the shape layer.
+- Customizable vertical scale, rounded corners radius, and additional effects based on the selected redaction style.
 - Support for various redaction styles: Basic, Brush, Marker, and Strikethrough.
+- CC Line Sweep effect applied for the redact animation.
+- Parenting the shape layer to the text layer for easier manipulation.
 
 ## Installation
 
@@ -24,7 +26,11 @@ This script for Adobe After Effects automates the process of redacting text by c
 3. Select a text layer in your composition that you want to redact.
 4. Choose a redaction style from the dropdown menu in the script panel.
 5. Click the `Apply` button to apply the redaction effect to the selected text layer.
-6. You can customize the shape layer properties, such as vertical scale and rounded corners radius, using the effect controls panel.
+6. You can customize the shape layer properties, such as vertical scale, rounded corners radius, and additional effects, using the effect controls panel.
+
+## Customization
+
+You can further customize the redacted effect by modifying the properties and expressions of the shape layer or by adding your own effects to the script.
 
 ## Contributing
 
