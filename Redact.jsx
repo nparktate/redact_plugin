@@ -134,7 +134,6 @@ function onApplyButtonClick() {
     turbulentDisplace.property("Amount").setValue(35);
     turbulentDisplace.property("Size").setValue(20);
     turbulentDisplace.property("Complexity").setValue(5);
-
   }
   
   // Check if the selected style is "Brush" and apply corresponding effects
