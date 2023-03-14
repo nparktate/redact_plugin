@@ -1,4 +1,4 @@
-﻿// Creates a dockable UI panel or a separate window depending on the input object
+// Creates a dockable UI panel or a separate window depending on the input object
 function createDockableUI(thisObj) {
   // If the input object is a Panel, use it directly, otherwise create a new Window
   var dialog =
@@ -41,6 +41,28 @@ function onApplyButtonClick() {
   // Get the bounding box of the text layer
   var boundingBox = textLayer.sourceRectAtTime(0, false);
 
+  // Calculate the new anchor point
+  var newAnchorPoint = [
+    boundingBox.left + boundingBox.width / 2,
+    boundingBox.top + boundingBox.height / 2,
+  ];
+
+  // Get the text layer's scale values
+  var textLayerScale = textLayer.transform.scale.value;
+
+  // Calculate the new position based on the new anchor point and scale values
+  var oldPosition = textLayer.transform.position.value;
+  var newPosition = [
+    oldPosition[0] + (newAnchorPoint[0] * textLayerScale[0] / 100),
+    oldPosition[1] + (newAnchorPoint[1] * textLayerScale[1] / 100),
+  ];
+
+  // Set the anchor point of the text layer to the new anchor point
+  textLayer.transform.anchorPoint.setValue(newAnchorPoint);
+
+  // Set the position of the text layer to the new position
+  textLayer.transform.position.setValue(newPosition); 
+
   // Create a new shape layer
   var shapeLayer = app.project.activeItem.layers.addShape();
 
@@ -64,7 +86,7 @@ function onApplyButtonClick() {
   // Add a slider control to the shape layer for vertical scale
   var verticalScale = shapeLayer.Effects.addProperty("ADBE Slider Control");
   verticalScale.name = "Vertical Scale";
-
+  
   // Check if the dropdown selection is "Strikethrough" and set the slider value accordingly
   if (dropdown1.selection.text === "Strikethrough") {
     verticalScale.property("Slider").setValue(25);
