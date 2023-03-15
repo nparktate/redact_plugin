@@ -2,6 +2,8 @@
 
 This script for Adobe After Effects automates the process of redacting text by creating a shape layer with customizable properties that covers the selected text layer. The script also supports various redaction styles, including Basic, Brush, Marker, and Strikethrough.
 
+![Comp 1_1](https://user-images.githubusercontent.com/57370896/225325494-bf80ef33-a6d8-42b6-9485-6cedf08217b4.gif)
+
 ## Features
 
 - Automatic creation of a shape layer that covers the selected text layer.
