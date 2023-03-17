@@ -15,10 +15,8 @@ This script for Adobe After Effects automates the process of redacting text by c
 ## Installation
 
 1. Download the script file `redact.jsx`.
-2. Place the script file in the `Scripts` folder of your After Effects installation directory:
-   - Windows: `C:\Program Files\Adobe\Adobe After Effects <version>\Support Files\Scripts`
-   - macOS: `/Applications/Adobe After Effects <version>/Scripts`
-3. Restart After Effects if it's already open.
+2. Open After Effects. Go to `File` > `Scripts` > `Install ScriptUI Panel...` then select the `redact.jsx` file.
+3. Restart After Effects.
 
 ## Usage
 
